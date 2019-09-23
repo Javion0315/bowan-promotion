@@ -91,12 +91,12 @@
                     <div class="opacityBg" style="position: fixed; top: 0; background: rgba(0,0,0,0.7); width: 100%; max-width: 570px;">
                         <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/pageLogo.png" class="img-fluid"></div>
                         <div class="offerText">
-                            优惠代码 : <input type="text" value="QOO1234567" id="offer" readonly="readonly"> <a onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
+                            优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
                             填入优惠代码以解锁多项优惠活动
                         </div>
                     </div>
                     <div class="inputText">
-                        <input type="text" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: yellow; font-weight: bold;">
+                        <input type="text" readonly="readonly" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: yellow; font-weight: bold;">
                     </div>
                 </div>
                 <div>
@@ -122,6 +122,14 @@
             title: '已复制代码',
             text: copyText.value,
         })
+    }
+    var url = location.href;
+    // var url = 'https://demo.com/58bowan?mgm_code=O74C6FA68';
+    if (url.indexOf('?') != -1) {
+        var ary = url.split('?')[1].split('=');
+        console.log(ary[1]);
+        $('#offer').val(ary[1]);
+        $('.inputOffer').val(ary[1]);
     }
 </script>
 </html>
