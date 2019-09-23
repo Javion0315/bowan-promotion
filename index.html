@@ -30,6 +30,10 @@
         .inputOffer {
             font-size: 25px;
         }
+        .opacityBg {
+            height: 94px;
+            height: 73px;
+        }
         #offer {
             width: 37%;
             background:rgba(0,0,0,0);
@@ -50,6 +54,9 @@
             }
             .inputOffer {
                 font-size: 30px;
+            }
+            .opacityBg {
+                height: 105px;
             }
         }
         @media (max-width: 375px) {
@@ -81,7 +88,7 @@
                         <div style="width: 40%"><a href="http://210.71.166.7/TTDS.apk"><img src="./img/android.png" class="img-fluid"></a></div>
                         <div style="width: 40%"><a href="https://web2data.me/dis_single.html?s=tgsh"><img src="./img/ios.png" class="img-fluid"></a></div>
                     </div>
-                    <div style="position: absolute; top: 0; background:rgba(0,0,0,0.7); width: 100%; height: 11%;">
+                    <div class="opacityBg" style="position: fixed; top: 0; background: rgba(0,0,0,0.7); width: 100%; max-width: 570px;">
                         <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/pageLogo.png" class="img-fluid"></div>
                         <div class="offerText">
                             优惠代码 : <input type="text" value="QOO1234567" id="offer" readonly="readonly"> <a onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
