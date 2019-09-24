@@ -8,75 +8,7 @@
     <link rel="icon" href="./img/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/bootstrap.min.css" crossorigin="anonymous">
     <link href="./css/sweetalert2.min.css" rel="stylesheet">
-    <style>
-        .offerText {
-            width: 75%;
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 30px;
-            letter-spacing: 1px;
-        }
-        .inputText {
-            width: 50%;
-            position: absolute;
-            font-weight: bold;
-            bottom: 90px;
-            right: 50px;
-        }
-        .inputOffer {
-            font-size: 25px;
-        }
-        .opacityBg {
-            height: 94px;
-            height: 73px;
-        }
-        #offer {
-            width: 37%;
-            background:rgba(0,0,0,0);
-            border: 0;
-            color: white
-        }
-        @media (min-width: 980px) {
-            .offerText {
-                font-size: 25px;
-                right: 18px;
-                line-height: 40px;
-            }
-            .inputText {
-                width: 50%;
-                position: absolute;
-                bottom: 130px;
-                right: 70px;
-            }
-            .inputOffer {
-                font-size: 30px;
-            }
-            .opacityBg {
-                height: 105px;
-            }
-        }
-        @media (max-width: 375px) {
-            .inputText {
-                bottom: 83px;
-            }
-        }
-        @media (max-width: 320px) {
-            .inputText {
-                bottom: 67px;
-            }
-            .inputOffer {
-                font-size: 20px;
-            }
-            .offerText {
-                font-size: 14px;
-                line-height: 25px;
-            }
-        }
-    </style>
+    <link href="./css/self.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -84,34 +16,93 @@
             <div class="col-md-6 offset-md-3" style="padding: 0">
                 <div style="position: relative;">
                     <img src="./img/page1.png" class="img-fluid">
+                    <!-- 下載按鈕 -->
                     <div style="display: flex; justify-content: space-around; position: absolute; bottom: 25px">
                         <div style="width: 40%"><a href="/app/ttds.apk"><img src="./img/android.png" class="img-fluid"></a></div>
                         <div style="width: 40%"><a href="https://web2data.me/dis_single.html?s=tgsh"><img src="./img/ios.png" class="img-fluid"></a></div>
                     </div>
-                    <div class="opacityBg" style="position: fixed; top: 0; background: rgba(0,0,0,0.7); width: 100%; max-width: 570px;">
-                        <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/pageLogo.png" class="img-fluid"></div>
-                        <div class="offerText">
-                            优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
-                            填入优惠代码以解锁多项优惠活动
-                        </div>
-                    </div>
+                    <!-- 優惠代碼 input  -->
                     <div class="inputText">
                         <input type="text" readonly="readonly" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: yellow; font-weight: bold;">
                     </div>
+                    <!-- 註冊按鈕 -->
+                    <div style="position: absolute; z-index: 5; bottom: 40%; right: 3px">
+                        <div data-toggle="modal" data-target="#registerModal" style="cursor: pointer"><img src="./img/rigester.png" class="img-fluid bg1regi"></div>
+                    </div>
                 </div>
-                <div>
+                <!-- 第二頁 -->
+                <div style="position: relative">
                     <img src="./img/page2.png" class="img-fluid">
+                    <!-- 試玩按鈕 -->
+                    <div class="bgPlay" style="position: absolute; height: 40%; bottom: 0;">
+                        <div><img src="./img/play.png" class="img-fluid bg2img" width="150"></div>
+                    </div>
+                </div>
+                <!-- 固定頂部的優惠代碼提示字 -->
+                <div class="opacityBg" style="position: fixed; top: 0; background: rgba(0,0,0,0.7); width: 100%; max-width: 570px;">
+                    <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/pageLogo.png" class="img-fluid"></div>
+                    <div class="offerText">
+                        优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
+                        填入优惠代码以解锁多项优惠活动
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- 註冊 Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: transparent; top: 60px">
+                    <div class="modal-body" style="background-image: url('./img/modalBg.png'); background-repeat: no-repeat; width: 100%; background-size: 100%; height: 85vh;">
+                        <div style="position: relative; top: 11%; width: 100%">
+                            <form style="position: absolute; left: 20px; width: 92%">
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/pwd.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
+                                    <input type="password" class="form-control" style="width: 57%; margin-left: 8px">
+                                </div>
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/confirmPwd.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
+                                    <input type="password" class="form-control" style="width: 57%; margin-left: 8px">
+                                </div>
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 35%; background-position: right center;"></div>
+                                    <input type="text" class="form-control" style="width: 57%; margin-left: 8px">
+                                </div>
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/authCode.png'); background-repeat: no-repeat; background-size: contain; width: 35%; background-position: center center;"></div>
+                                    <input type="text" class="form-control" style="width: 30%; margin-left: 8px">
+                                    <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
+                                </div>
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/email.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
+                                    <input type="email" class="form-control" style="width: 57%; margin-left: 8px">
+                                </div>
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/emailAuth.png'); background-repeat: no-repeat; background-size: contain; width: 35%; background-position: center 5px;"></div>
+                                    <input type="text" class="form-control" style="width: 30%; margin-left: 8px">
+                                    <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
+                                </div>
+                                <div class="form-group row">
+                                    <div style="background-image: url('./img/offerCode.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
+                                    <input type="text" class="form-control" style="width: 57%; margin-left: 8px">
+                                </div>
+                                <div class="form-group row">
+                                    <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/confirm.png'); background-repeat: no-repeat; background-size: 35%; width: 100%; background-position: center center; height: 65px;"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
     </div>
 </body>
 <script src="./js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="./js/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="./js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script src="./js/sweetalert2@8.js"></script>
-<script src="./js/promise-polyfill.js"></script>
 <script>
+    // 複製代碼
     function copyText() {
         var copyText = document.getElementById("offer");
         copyText.select();
@@ -123,11 +114,13 @@
             text: copyText.value,
         })
     }
+    // 抓網址上的優惠代碼 query string
     var url = location.href;
     // var url = 'https://demo.com/58bowan?mgm_code=O74C6FA68';
     if (url.indexOf('?') != -1) {
         var ary = url.split('?')[1].split('=');
         console.log(ary[1]);
+        // 自動填入 input 
         $('#offer').val(ary[1]);
         $('.inputOffer').val(ary[1]);
     }

@@ -1,0 +1,89 @@
+.offerText {
+    width: 75%;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 1px;
+}
+.inputText {
+    width: 50%;
+    position: absolute;
+    font-weight: bold;
+    bottom: 90px;
+    right: 50px;
+}
+.inputOffer {
+    font-size: 25px;
+}
+.opacityBg {
+    height: 94px;
+    height: 73px;
+}
+#offer {
+    width: 37%;
+    background:rgba(0,0,0,0);
+    border: 0;
+    color: white
+}
+.bgPlay {
+    margin-left: 33%;
+    width: 35%
+}
+.bg2img {
+    width: 150px
+}
+.bg1regi {
+    width: 160px
+}
+.form-group {
+    height: 33px;
+}
+@media (min-width: 980px) {
+    .offerText {
+        font-size: 25px;
+        right: 18px;
+        line-height: 40px;
+    }
+    .inputText {
+        width: 50%;
+        position: absolute;
+        bottom: 130px;
+        right: 70px;
+    }
+    .inputOffer {
+        font-size: 30px;
+    }
+    .opacityBg {
+        height: 105px;
+    }
+    .bg2img {
+        width: 200px
+    }
+    .bg1regi {
+        width: 250px
+    }
+    .form-group {
+        height: 45px;
+    }
+}
+@media (max-width: 375px) {
+    .inputText {
+        bottom: 83px;
+    }
+}
+@media (max-width: 320px) {
+    .inputText {
+        bottom: 67px;
+    }
+    .inputOffer {
+        font-size: 20px;
+    }
+    .offerText {
+        font-size: 14px;
+        line-height: 25px;
+    }
+}
