@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div style="background-image: url('./img/offerCode.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
-                                    <input type="text" class="form-control" style="width: 57%; margin-left: 8px">
+                                    <input type="text" class="form-control inputOffer" style="width: 57%; margin-left: 8px" disabled>
                                 </div>
                                 <div class="form-group row">
                                     <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/confirm.png'); background-repeat: no-repeat; background-size: 35%; width: 100%; background-position: center center; height: 65px;"></button>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
 </body>
 <script src="./js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -117,13 +117,17 @@
     }
     // 抓網址上的優惠代碼 query string
     var url = location.href;
+    var mgmCode;
     // var url = 'https://demo.com/58bowan?mgm_code=O74C6FA68';
     if (url.indexOf('?') != -1) {
         var ary = url.split('?')[1].split('=');
         console.log(ary[1]);
-        // 自動填入 input 
+
+        mgmCode = ary[1];
+        // 自動填入 input
         $('#offer').val(ary[1]);
         $('.inputOffer').val(ary[1]);
+
     }
 </script>
 </html>
