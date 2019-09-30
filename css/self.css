@@ -41,6 +41,12 @@
 }
 .form-group {
     height: 33px;
+    position: relative;
+}
+.star {
+    width: 5%;
+    position: absolute;
+    top: 11px;
 }
 @media (min-width: 980px) {
     .offerText {
