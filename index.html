@@ -56,46 +56,46 @@
                 <div class="modal-content" style="background-color: transparent; top: 60px">
                     <div class="modal-body" style="background-image: url('./img/modalBg.png'); background-repeat: no-repeat; width: 100%; background-size: 100%; height: 85vh;">
                         <div style="position: relative; top: 8%; width: 100%">
-                            <form style="position: absolute; left: 20px; width: 92%">
+                            <form style="position: absolute; left: 20px; width: 92%" id='registerForm' onsubmit="return false">
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: 40px;">
                                     <div style="background-image: url('./img/pwd.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
-                                    <input type="password" class="form-control" style="width: 57%; margin-left: 8px" required>
+                                    <input type="password" id="password" class="form-control" style="width: 57%; margin-left: 8px" required>
                                 </div>
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: -2px;">
                                     <div style="background-image: url('./img/confirmPwd.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
-                                    <input type="password" class="form-control" style="width: 57%; margin-left: 8px" required>
+                                    <input type="password" id="password_verification" class="form-control" style="width: 57%; margin-left: 8px" required>
                                 </div>
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: 20px;">
                                     <div style="background-image: url('./img/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 35%; background-position: right center;"></div>
-                                    <input type="text" class="form-control" style="width: 57%; margin-left: 8px" required>
+                                    <input type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" required>
                                 </div>
                                 <div class="form-group row" style="margin-left: 2px">
                                     <img src="./img/star.png" class="star" style="left: -18px;">
                                     <div style="background-image: url('./img/authCode.png'); background-repeat: no-repeat; background-size: contain; width: 32%; background-position: center center;"></div>
-                                    <input type="text" class="form-control" style="width: 32%; margin-left: 8px" required>
+                                    <input type="text" id="phone_captcha" class="form-control" style="width: 32%; margin-left: 8px" required>
                                     <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
                                 </div>
                                 <div class="form-group row">
                                     <div style="background-image: url('./img/email.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
-                                    <input type="email" class="form-control" style="width: 57%; margin-left: 8px">
+                                    <input type="email" id="mail" class="form-control" style="width: 57%; margin-left: 8px">
                                 </div>
                                 <div class="form-group row">
                                     <div style="background-image: url('./img/emailAuth.png'); background-repeat: no-repeat; background-size: contain; width: 35%; background-position: center 5px;"></div>
-                                    <input type="text" class="form-control" style="width: 30%; margin-left: 8px">
+                                    <input type="text" id="mail_captcha" class="form-control" style="width: 30%; margin-left: 8px">
                                     <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
                                 </div>
                                 <div class="form-group row" style="margin-bottom: 5px">
                                     <div style="background-image: url('./img/offerCode.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
-                                    <input type="text" class="form-control inputOffer" style="width: 57%; margin-left: 8px" disabled>
+                                    <input type="text" id="mgm_code" class="form-control inputOffer" style="width: 57%; margin-left: 8px" disabled>
                                 </div>
                                 <div class="form-group row" style="margin-bottom: 0px">
                                     <div style="background-image: url('./img/required.png'); background-repeat: no-repeat; background-size: 40%; width: 90%; background-position: right center;"></div>
                                 </div>
                                 <div class="form-group row">
-                                    <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/confirm.png'); background-repeat: no-repeat; background-size: 35%; width: 100%; background-position: center center; height: 65px;"></button>
+                                    <button id="registerPlayer" style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/confirm.png'); background-repeat: no-repeat; background-size: 35%; width: 100%; background-position: center center; height: 65px;"></button>
                                 </div>
                             </form>
                         </div>
@@ -111,33 +111,78 @@
 <script src="./js/sweetalert2@8.js"></script>
 <script>
     let domain = "api.shouhou123.com";
-    let baseUrl = `https://${domain}/v1/recommender/`;
+    let baseUrl = `https://${domain}/v1/`;
     let query = getUrlVars();
     let url = '';
 
     $(function() {
-        url = baseUrl + 'click';
+        url = baseUrl + 'recommender/click';
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: {site: query['site'], mgm_code: query['mgm_code']},
-            dataType: "json"
-        });
+        if(query['mgm_code']) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {site: query['site'], mgm_code: query['mgm_code']},
+                dataType: "json"
+            });
 
-        $('#offer').val(query['mgm_code']);
-        $('.inputOffer').val(query['mgm_code']);
+            $('#offer').val(query['mgm_code']);
+            $('.inputOffer').val(query['mgm_code']);
+        }
     });
 
-    $(".downloadButton").click(function(){
-        url = baseUrl + 'download';
+    $(".downloadButton").click(function() {
+        if(query['mgm_code']) {
+            url = baseUrl + 'recommender/download';
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: {site: query['site'], mgm_code: query['mgm_code']},
-            dataType: "json"
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {site: query['site'], mgm_code: query['mgm_code']},
+                dataType: "json"
+            });
+        }
+    });
+
+    $("#registerPlayer").click(function() {
+        let registerData = {};
+
+        $("form#registerForm :input").each(function(){
+            let input = $(this);
+            if(input[0].id && input[0].id != 'registerPlayer' && input[0].value) {
+                registerData[input[0].id] = input[0].value;
+            }
         });
+
+        registerData['site'] = query['site'];
+
+        //確認重複密碼相同
+        if(registerData['password'] === registerData['password_verification']) {
+            delete registerData['password_verification'];
+            url = baseUrl + 'player/register';
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: registerData,
+                dataType: "json"
+            }).done(function(data) {
+                if(data.code == 201) {
+                    Swal.fire({
+                        type: 'success',
+                        title: '已成功注册',
+                        text: `欢迎你 ! ${registerData['phone']}`,
+                    })
+                }
+            }).fail(function(err) {
+                Swal.fire({
+                    type: 'error',
+                    title: '注册失败',
+                    text: '请确认资料输入是否正确',
+                })
+            });
+        }
+
     });
 
     // 抓網址上的優惠代碼 query string
@@ -151,10 +196,15 @@
             let mgmCodeAry = splitAry[1].split('=');
             let siteAry = splitAry[0].split('/');
 
-            mgmCode = mgmCodeAry[1];
-            site = siteAry[siteAry.length - 2];
+            let mgmCode = mgmCodeAry[1];
+            let site = siteAry[siteAry.length - 2];
 
-            return {site:site, mgm_code:mgmCode};
+            return {site: site, mgm_code:mgmCode};
+        } else {
+            let siteAry = url.split('/');
+            let site = siteAry[siteAry.length - 2];
+
+            return {site: site};
         }
     }
     // 複製代碼
