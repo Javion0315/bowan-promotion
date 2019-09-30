@@ -18,8 +18,8 @@
                     <img src="./img/page1.png" class="img-fluid">
                     <!-- 下載按鈕 -->
                     <div style="display: flex; justify-content: space-around; position: absolute; bottom: 25px">
-                        <div style="width: 35%"><a href="/app/ttds.apk"><img src="./img/android.png" class="img-fluid"></a></div>
-                        <div style="width: 35%"><a href="https://web2data.me/dis_single.html?s=tgsh"><img src="./img/ios.png" class="img-fluid"></a></div>
+                        <div style="width: 35%"><a href="/app/ttds.apk" class='downloadButton'><img src="./img/android.png" class="img-fluid"></a></div>
+                        <div style="width: 35%"><a href="https://web2data.me/dis_single.html?s=tgsh" class='downloadButton'><img src="./img/ios.png" class="img-fluid"></a></div>
                         <div style="width: 20%"><a href="download.html"><img src="./img/download.png" class="img-fluid"></a></div>
                     </div>
                     <!-- 優惠代碼 input  -->
@@ -98,11 +98,58 @@
         </div>
     </div>
 </body>
-<script src="./js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="./js/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="./js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="./js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="./js/popper.min.js" crossorigin="anonymous"></script>
+<script src="./js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="./js/sweetalert2@8.js"></script>
 <script>
+    let domain = "dev.bowanapi";
+    let baseUrl = `http://${domain}/v1/recommender/`;
+    let query = getUrlVars();
+    let url = '';
+
+    $(function() {
+        url = baseUrl + 'click';
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {site: query['site'], mgm_code: query['mgm_code']},
+            dataType: "json"
+        });
+
+        $('#offer').val(query['mgm_code']);
+        $('.inputOffer').val(query['mgm_code']);
+    });
+
+    $(".downloadButton").click(function(){
+        url = baseUrl + 'download';
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {site: query['site'], mgm_code: query['mgm_code']},
+            dataType: "json"
+        });
+    });
+
+    // 抓網址上的優惠代碼 query string
+    function getUrlVars()
+    {
+        // var url = 'https://demo.com/58bowan?mgm_code=O74C6FA68';
+        var url = location.href;
+
+        if (url.indexOf('?') != -1) {
+            let splitAry = url.split('?');
+            let mgmCodeAry = splitAry[1].split('=');
+            let siteAry = splitAry[0].split('/');
+
+            mgmCode = mgmCodeAry[1];
+            site = siteAry[siteAry.length - 2];
+
+            return {site:site, mgm_code:mgmCode};
+        }
+    }
     // 複製代碼
     function copyText() {
         var copyText = document.getElementById("offer");
@@ -114,20 +161,6 @@
             title: '已复制代码',
             text: copyText.value,
         })
-    }
-    // 抓網址上的優惠代碼 query string
-    var url = location.href;
-    var mgmCode;
-    // var url = 'https://demo.com/58bowan?mgm_code=O74C6FA68';
-    if (url.indexOf('?') != -1) {
-        var ary = url.split('?')[1].split('=');
-        console.log(ary[1]);
-
-        mgmCode = ary[1];
-        // 自動填入 input
-        $('#offer').val(ary[1]);
-        $('.inputOffer').val(ary[1]);
-
     }
 </script>
 </html>
