@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css" crossorigin="anonymous">
     <link href="./css/sweetalert2.min.css" rel="stylesheet">
     <link href="./css/self.css" rel="stylesheet">
+    <style>
+        .modal-body {
+            background-image: url('./img/modalBg.png'); 
+        }
+        @media (min-width: 980px) {
+            .modal-body {
+                background-image: url('./img/modalBgNew.png'); 
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,17 +27,21 @@
                 <div style="position: relative;">
                     <img src="./img/page1.png" class="img-fluid">
                     <!-- 下載按鈕 -->
-                    <div style="display: flex; justify-content: space-around; position: absolute; bottom: 25px">
-                        <div style="width: 35%"><a href="/app/ttds.apk" class='downloadButton'><img src="./img/android.png" class="img-fluid"></a></div>
-                        <div style="width: 35%"><a href="https://web2data.me/dis_single.html?s=5xb5" class='downloadButton'><img src="./img/ios.png" class="img-fluid"></a></div>
-                        <div style="width: 20%"><a href="download.html"><img src="./img/download.png" class="img-fluid"></a></div>
+                    <div style="display: flex; justify-content: space-around; position: absolute; bottom: 35px">
+                        <div style="width: 45%"><a href="/app/ttds.apk" class='downloadButton'><img src="./img/android.png" class="img-fluid"></a></div>
+                        <div style="width: 45%"><a href="https://web2data.me/dis_single.html?s=5xb5" class='downloadButton'><img src="./img/ios.png" class="img-fluid"></a></div>
+                        <!-- <div style="width: 20%"><a href="download.html"><img src="./img/download.png" class="img-fluid"></a></div> -->
+                    </div>
+                     <!-- 下載教學 -->
+                     <div class="downloadIntro" style="position: absolute; z-index: 5;">
+                        <div style="cursor: pointer"><a href="download.html"><img src="./img/download.png" class="img-fluid downloadIntro downloadImg"></a></div>
                     </div>
                     <!-- 優惠代碼 input  -->
-                    <div class="inputText">
+                    <!-- <div class="inputText">
                         <input type="text" readonly="readonly" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: yellow; font-weight: bold;">
-                    </div>
+                    </div> -->
                     <!-- 註冊按鈕 -->
-                    <div style="position: absolute; z-index: 5; bottom: 40%; right: 3px">
+                    <div style="position: absolute; z-index: 5; bottom: 43%; right: 3px">
                         <div data-toggle="modal" data-target="#registerModal" style="cursor: pointer"><img src="./img/rigester.png" class="img-fluid bg1regi"></div>
                     </div>
                 </div>
@@ -43,9 +57,12 @@
                 <div class="opacityBg" style="position: fixed; top: 0; background: rgba(0,0,0,0.7); width: 100%; max-width: 570px;">
                     <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/pageLogo.png" class="img-fluid"></div>
                     <div class="offerText">
-                        优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
+                        优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a class="offerBtn" data-clipboard-target="#offer" onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
                         填入优惠代码以解锁多项优惠活动
                     </div>
+
+                    <!-- <span><input id="cardNo" value="{{ $cardNo }}" readonly></span>
+                    <span class="cpBtn cardNoBtn" data-clipboard-target="#cardNo">复制</span> -->
                 </div>
             </div>
         </div>
@@ -54,8 +71,9 @@
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: transparent; top: 60px">
-                    <div class="modal-body" style="background-image: url('./img/modalBg.png'); background-repeat: no-repeat; width: 100%; background-size: 100%; height: 85vh;">
-                        <div style="position: relative; top: 8%; width: 100%">
+                    <img src="./img/close.png" data-dismiss="modal" style="cursor: pointer; width: 18%; position: absolute; z-index: 5; right: 0;">
+                    <div class="modal-body" style="background-repeat: no-repeat; width: 100%; background-size: 100%; height: 70vh;">
+                        <div style="position: relative; top: 8%; width: 100%; z-index: 5; right: 0px;">
                             <form style="position: absolute; left: 20px; width: 92%" id='registerForm' onsubmit="return false">
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: 40px;">
@@ -109,6 +127,7 @@
 <script src="./js/popper.min.js" crossorigin="anonymous"></script>
 <script src="./js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="./js/sweetalert2@8.js"></script>
+<script src="./js/clipboard.min.js"></script>
 <script>
     let domain = "api.shouhou123.com";
     let baseUrl = `https://${domain}/v1/`;
@@ -188,7 +207,7 @@
     // 抓網址上的優惠代碼 query string
     function getUrlVars()
     {
-        // var url = 'https://demo.com/58bowan?mgm_code=O74C6FA68';
+        // var url = 'https://demo.com/58bowan?mgm_code=145C6FA74';
         var url = location.href;
 
         if (url.indexOf('?') != -1) {
@@ -209,14 +228,11 @@
     }
     // 複製代碼
     function copyText() {
-        var copyText = document.getElementById("offer");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        document.execCommand("copy");
+        new Clipboard(".offerBtn");
         Swal.fire({
             type: 'success',
             title: '已复制代码',
-            text: copyText.value,
+            text: $('#offer').val(),
         })
     }
 </script>

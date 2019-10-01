@@ -48,6 +48,16 @@
     position: absolute;
     top: 11px;
 }
+.downloadImg {
+    width: 60px;
+}
+.downloadIntro {
+    bottom: 0px;
+    right: 65px
+}
+#registerForm {
+    top: 25px
+}
 @media (min-width: 980px) {
     .offerText {
         font-size: 25px;
@@ -74,6 +84,16 @@
     }
     .form-group {
         height: 45px;
+    }
+    .downloadImg {
+        width: 80px;
+    }
+    .downloadIntro {
+        bottom: -10px;
+        right: 100px
+    }
+    #registerForm {
+        top: 8px
     }
 }
 @media (max-width: 375px) {
