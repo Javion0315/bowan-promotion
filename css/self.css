@@ -13,7 +13,7 @@
     width: 50%;
     position: absolute;
     font-weight: bold;
-    bottom: 90px;
+    bottom: 107px;
     right: 50px;
 }
 .inputOffer {
@@ -67,7 +67,7 @@
     .inputText {
         width: 50%;
         position: absolute;
-        bottom: 130px;
+        bottom: 163px;
         right: 70px;
     }
     .inputOffer {
@@ -98,12 +98,12 @@
 }
 @media (max-width: 375px) {
     .inputText {
-        bottom: 83px;
+        bottom: 101px;
     }
 }
 @media (max-width: 320px) {
     .inputText {
-        bottom: 67px;
+        bottom: 83px;
     }
     .inputOffer {
         font-size: 20px;
