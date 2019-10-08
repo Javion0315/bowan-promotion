@@ -11,12 +11,7 @@
     <link href="./css/self.css" rel="stylesheet">
     <style>
         .modal-body {
-            background-image: url('./img/modalBg.png'); 
-        }
-        @media (min-width: 980px) {
-            .modal-body {
-                background-image: url('./img/modalBgNew.png'); 
-            }
+            background-image: url('./img/modalBgNew.png'); 
         }
     </style>
 </head>
@@ -28,11 +23,8 @@
                     <img src="./img/page1.png" class="img-fluid">
                     <!-- 下載按鈕 -->
                     <div style="display: flex; justify-content: space-around; position: absolute; bottom: 35px">
-                        <!-- <div style="width: 45%"><a href="/app/ttds.apk" class='downloadButton'><img src="./img/android.png" class="img-fluid"></a></div>
-                        <div style="width: 45%"><a href="https://web2data.me/dis_single.html?s=5xb5" class='downloadButton'><img src="./img/ios.png" class="img-fluid"></a></div> -->
                         <div style="width: 45%; cursor: pointer;"><a class='downloadButton android' onclick="register(this)"><img src="./img/android.png" class="img-fluid"></a></div>
                         <div style="width: 45%; cursor: pointer;"><a class='downloadButton ios' onclick="register(this)"><img src="./img/ios.png" class="img-fluid"></a></div>
-                        <!-- <div style="width: 20%"><a href="download.html"><img src="./img/download.png" class="img-fluid"></a></div> -->
                     </div>
                      <!-- 下載教學 -->
                      <div class="downloadIntro" style="position: absolute; z-index: 5;">
@@ -62,9 +54,6 @@
                         优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a class="offerBtn" data-clipboard-target="#offer" onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
                         填入优惠代码以解锁多项优惠活动
                     </div>
-
-                    <!-- <span><input id="cardNo" value="{{ $cardNo }}" readonly></span>
-                    <span class="cpBtn cardNoBtn" data-clipboard-target="#cardNo">复制</span> -->
                 </div>
             </div>
         </div>
@@ -78,6 +67,11 @@
                         <div style="position: relative; top: 8%; width: 100%; z-index: 5; right: 0px;">
                             <form style="position: absolute; left: 20px; width: 92%" id='registerForm' onsubmit="return false">
                                 <div class="form-group row">
+                                    <img src="./img/star.png" class="star" style="left: 20px;">
+                                    <div style="background-image: url('./img/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 35%; background-position: right center;"></div>
+                                    <input type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" required>
+                                </div>
+                                <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: 40px;">
                                     <div style="background-image: url('./img/pwd.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
                                     <input type="password" id="password" class="form-control" style="width: 57%; margin-left: 8px" required>
@@ -87,26 +81,21 @@
                                     <div style="background-image: url('./img/confirmPwd.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
                                     <input type="password" id="password_verification" class="form-control" style="width: 57%; margin-left: 8px" required>
                                 </div>
-                                <div class="form-group row">
-                                    <img src="./img/star.png" class="star" style="left: 20px;">
-                                    <div style="background-image: url('./img/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 35%; background-position: right center;"></div>
-                                    <input type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" required>
-                                </div>
                                 <!-- <div class="form-group row" style="margin-left: 2px">
                                     <img src="./img/star.png" class="star" style="left: -18px;">
                                     <div style="background-image: url('./img/authCode.png'); background-repeat: no-repeat; background-size: contain; width: 32%; background-position: center center;"></div>
                                     <input type="text" id="phone_captcha" class="form-control" style="width: 32%; margin-left: 8px" required>
                                     <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
                                 </div> -->
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <div style="background-image: url('./img/email.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
                                     <input type="email" id="mail" class="form-control" style="width: 57%; margin-left: 8px">
-                                </div>
-                                <div class="form-group row">
+                                </div> -->
+                                <!-- <div class="form-group row">
                                     <div style="background-image: url('./img/emailAuth.png'); background-repeat: no-repeat; background-size: contain; width: 35%; background-position: center 5px;"></div>
                                     <input type="text" id="mail_captcha" class="form-control" style="width: 30%; margin-left: 8px">
                                     <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
-                                </div>
+                                </div> -->
                                 <div class="form-group row" style="margin-bottom: 5px">
                                     <div style="background-image: url('./img/offerCode.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
                                     <input type="text" id="mgm_code" class="form-control inputOffer" style="width: 57%; margin-left: 8px" disabled>
