@@ -28,8 +28,10 @@
                     <img src="./img/page1.png" class="img-fluid">
                     <!-- 下載按鈕 -->
                     <div style="display: flex; justify-content: space-around; position: absolute; bottom: 35px">
-                        <div style="width: 45%"><a href="/app/ttds.apk" class='downloadButton'><img src="./img/android.png" class="img-fluid"></a></div>
-                        <div style="width: 45%"><a href="https://web2data.me/dis_single.html?s=5xb5" class='downloadButton'><img src="./img/ios.png" class="img-fluid"></a></div>
+                        <!-- <div style="width: 45%"><a href="/app/ttds.apk" class='downloadButton'><img src="./img/android.png" class="img-fluid"></a></div>
+                        <div style="width: 45%"><a href="https://web2data.me/dis_single.html?s=5xb5" class='downloadButton'><img src="./img/ios.png" class="img-fluid"></a></div> -->
+                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton android' onclick="register(this)"><img src="./img/android.png" class="img-fluid"></a></div>
+                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton ios' onclick="register(this)"><img src="./img/ios.png" class="img-fluid"></a></div>
                         <!-- <div style="width: 20%"><a href="download.html"><img src="./img/download.png" class="img-fluid"></a></div> -->
                     </div>
                      <!-- 下載教學 -->
@@ -41,16 +43,16 @@
                         <input type="text" readonly="readonly" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: yellow; font-weight: bold;">
                     </div>
                     <!-- 註冊按鈕 -->
-                    <div style="position: absolute; z-index: 5; bottom: 43%; right: 3px">
+                    <!-- <div style="position: absolute; z-index: 5; bottom: 43%; right: 3px">
                         <div data-toggle="modal" data-target="#registerModal" style="cursor: pointer"><img src="./img/rigester.png" class="img-fluid bg1regi"></div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- 第二頁 -->
                 <div style="position: relative">
                     <img src="./img/page2.png" class="img-fluid">
                     <!-- 試玩按鈕 -->
                     <div class="bgPlay" style="position: absolute; height: 40%; bottom: 0;">
-                        <div><img src="./img/play.png" class="img-fluid bg2img" width="150"></div>
+                        <div><a href="http://play.58poker.net/H5Hall/"><img src="./img/play.png" class="img-fluid bg2img" width="150"></a></div>
                     </div>
                 </div>
                 <!-- 固定頂部的優惠代碼提示字 -->
@@ -149,6 +151,58 @@
             $('.inputOffer').val(query['mgm_code']);
         }
     });
+    function register(btn) {
+        device = $(btn).attr('class').split(' ')[1];
+        $('#registerModal').modal('show');
+       
+        $("#registerPlayer").click(function() {
+            let registerData = {};
+
+            $("form#registerForm :input").each(function(){
+                let input = $(this);
+                if(input[0].id && input[0].id != 'registerPlayer' && input[0].value) {
+                    registerData[input[0].id] = input[0].value;
+                }
+            });
+
+            registerData['site'] = query['site'];
+
+            //確認重複密碼相同
+            if(registerData['password'] === registerData['password_verification']) {
+                delete registerData['password_verification'];
+                url = baseUrl + 'player/register';
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: registerData,
+                    dataType: "json"
+                }).done(function(data) {
+                    if(data.code == 201) {
+                        Swal.fire({
+                            type: 'success',
+                            title: '已成功注册',
+                            text: `欢迎你 ! ${registerData['phone']}`,
+                        }).then(function() {
+                            if(device == 'android') {
+                                window.location = "/app/ttds.apk";
+                            } else {
+                                window.location = "https://web2data.me/dis_single.html?s=5xb5";
+                            }
+                        })
+                    }
+                }).fail(function(err) {
+                    Swal.fire({
+                        type: 'error',
+                        title: '注册失败',
+                        text: '请确认资料输入是否正确',
+                    })
+                });
+            }
+
+        });
+        console.log(device == 'android');
+    }
 
     $(".downloadButton").click(function() {
         if(query['mgm_code']) {
@@ -161,47 +215,6 @@
                 dataType: "json"
             });
         }
-    });
-
-    $("#registerPlayer").click(function() {
-        let registerData = {};
-
-        $("form#registerForm :input").each(function(){
-            let input = $(this);
-            if(input[0].id && input[0].id != 'registerPlayer' && input[0].value) {
-                registerData[input[0].id] = input[0].value;
-            }
-        });
-
-        registerData['site'] = query['site'];
-
-        //確認重複密碼相同
-        if(registerData['password'] === registerData['password_verification']) {
-            delete registerData['password_verification'];
-            url = baseUrl + 'player/register';
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: registerData,
-                dataType: "json"
-            }).done(function(data) {
-                if(data.code == 201) {
-                    Swal.fire({
-                        type: 'success',
-                        title: '已成功注册',
-                        text: `欢迎你 ! ${registerData['phone']}`,
-                    })
-                }
-            }).fail(function(err) {
-                Swal.fire({
-                    type: 'error',
-                    title: '注册失败',
-                    text: '请确认资料输入是否正确',
-                })
-            });
-        }
-
     });
 
     // 抓網址上的優惠代碼 query string
