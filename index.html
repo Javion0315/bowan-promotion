@@ -11,7 +11,7 @@
     <link href="./css/self.css" rel="stylesheet">
     <style>
         .modal-body {
-            background-image: url('./img/modalBgNew.png'); 
+            background-image: url('./img/modalBgNew.png');
         }
     </style>
 </head>
@@ -143,7 +143,7 @@
     function register(btn) {
         device = $(btn).attr('class').split(' ')[1];
         $('#registerModal').modal('show');
-       
+
         $("#registerPlayer").click(function() {
             let registerData = {};
 
@@ -180,12 +180,18 @@
                             }
                         })
                     }
-                }).fail(function(err) {
-                    Swal.fire({
-                        type: 'error',
-                        title: '注册失败',
-                        text: '请确认资料输入是否正确',
-                    })
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log();
+                    if (jqXHR.status == 409) {
+                        // 帳號重複在這裡
+                        alert('帳號重複');
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '注册失败',
+                            text: '请确认资料输入是否正确',
+                        })
+                    }
                 });
             }
 
