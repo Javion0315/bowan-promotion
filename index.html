@@ -23,6 +23,14 @@
             padding-left: 10%;
             width: 100%
         }
+        .swal2-modal {
+            height: 450px;
+        }
+        @media (min-width: 980px) {
+            .swal2-modal {
+                height: 500px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -82,7 +90,7 @@
                                     <input type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" minlength="11" maxlength="11" pattern="^1(1|3|4|5|6|7|8|9)\d{9}$" data-error="输入错误，请输入11码电话号码" required>
                                     <div class="help-block with-errors" style="color: yellow; width: 100%; font-weight: bold"></div>
                                 </div>
-                                <div class="used"><label style="color: yellow">已有人使用 !</label></div>
+                                <div class="used"><label style="color: yellow; margin-bottom: 0">已有人使用 !</label></div>
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: 40px;">
                                     <div style="background-image: url('./img/pwd.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
@@ -140,6 +148,14 @@
     let query = getUrlVars();
     let url = '';
 
+    //變更 swal 背景樣式
+    function swalStyle() {
+        $('.swal2-modal').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center'})
+        $('.swal2-confirm').css({'background': 'url(./img/confirm.png)'});
+        $('.swal2-styled').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center', 'width': '115px', 'height': '50px'})
+        $('.swal2-content').css('color', 'white')
+    }
+    
     $(function() {
         url = baseUrl + 'recommender/click';
 
@@ -185,8 +201,11 @@
                     if(data.code == 201) {
                         Swal.fire({
                             type: 'success',
-                            title: '已成功注册',
+                            title: '<h2 style="color: white">已成功注册</h2>',
                             text: `欢迎你 ! ${registerData['phone']}`,
+                            background: 'url(./img/reg_modal.png)',
+                            width: 450,
+                            confirmButtonText: ''
                         }).then(function() {
                             if(device == 'android') {
                                 window.location = "/app/ttds.apk";
@@ -194,6 +213,7 @@
                                 window.location = "https://web2data.me/dis_single.html?s=5xb5";
                             }
                         })
+                        swalStyle()
                     }
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     console.log();
@@ -204,14 +224,24 @@
                         $('.phoneRow').css('margin-bottom', '0');
                         $('#phone').focus(function() {
                             $('.used').hide();
-                            $('.phoneRow').css('margin-bottom', '1rem');
+                            $('#phone').val('');
+                            $('.phoneRow').css('margin-bottom', '30px');
                         })
                     } else {
                         Swal.fire({
                             type: 'error',
-                            title: '注册失败',
+                            title: '<h2 style="color: white">注册失败</h2>',
                             text: '请确认资料输入是否正确',
+                            background: 'url(./img/reg_modal.png)',
+                            width: 450,
+                            confirmButtonText: ''
+                        }).then(function() {
+                            $('#phone').val('');
+                            $('#password').val('');
+                            $('#password_verification').val('');
+                            $('#mgm_code').val('');
                         })
+                        swalStyle();
                     }
                 });
             }
@@ -260,9 +290,13 @@
         new Clipboard(".offerBtn");
         Swal.fire({
             type: 'success',
-            title: '已复制代码',
+            title: '<h2 style="color: white">已复制代码</h2>',
             text: $('#offer').val(),
+            background: 'url(./img/reg_modal.png)',
+            width: 450,
+            confirmButtonText: ''
         })
+        swalStyle();
     }
 </script>
 </html>
