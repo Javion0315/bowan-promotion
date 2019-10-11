@@ -41,8 +41,8 @@
                     <img src="./img/page1.png" class="img-fluid">
                     <!-- 下載按鈕 -->
                     <div style="display: flex; justify-content: space-around; position: absolute; bottom: 35px">
-                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton android' onclick="register(this)"><img src="./img/android.png" class="img-fluid"></a></div>
-                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton ios' onclick="register(this)"><img src="./img/ios.png" class="img-fluid"></a></div>
+                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton android' onclick="register(this, 'android')"><img src="./img/android.png" class="img-fluid"></a></div>
+                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton ios' onclick="register(this, 'ios')"><img src="./img/ios.png" class="img-fluid"></a></div>
                     </div>
                      <!-- 下載教學 -->
                      <div class="downloadIntro" style="position: absolute; z-index: 5;">
@@ -147,6 +147,7 @@
     let baseUrl = `https://${domain}/v1/`;
     let query = getUrlVars();
     let url = '';
+    let registerFlag = false;
 
     //變更 swal 背景樣式
     function swalStyle() {
@@ -155,7 +156,7 @@
         $('.swal2-styled').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center', 'width': '115px', 'height': '50px'})
         $('.swal2-content').css('color', 'white')
     }
-    
+
     $(function() {
         url = baseUrl + 'recommender/click';
 
@@ -171,8 +172,15 @@
             $('.inputOffer').val(query['mgm_code']);
         }
     });
-    function register(btn) {
-        device = $(btn).attr('class').split(' ')[1];
+    function register(btn, device) {
+        if (registerFlag) {
+            if(device == 'android') {
+                window.location = "/app/ttds.apk";
+            } else {
+                setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
+            }
+            return;
+        }
         $('#registerModal').modal('show');
 
         $("#registerPlayer").click(function() {
@@ -199,6 +207,7 @@
                     dataType: "json"
                 }).done(function(data) {
                     if(data.code == 201) {
+                        registerFlag = true;
                         Swal.fire({
                             type: 'success',
                             title: '<h2 style="color: white">已成功注册</h2>',
@@ -207,10 +216,11 @@
                             width: 450,
                             confirmButtonText: ''
                         }).then(function() {
+                            $('#registerModal').modal('hide');
                             if(device == 'android') {
                                 window.location = "/app/ttds.apk";
                             } else {
-                                window.location = "https://web2data.me/dis_single.html?s=5xb5";
+                                setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
                             }
                         })
                         swalStyle()
