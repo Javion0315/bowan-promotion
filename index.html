@@ -105,24 +105,24 @@
                     <img src="./img/close.png" data-dismiss="modal" style="cursor: pointer; width: 18%; position: absolute; z-index: 5; right: 0;">
                     <div class="modal-body" style="background-repeat: no-repeat; width: 100%; background-size: 100%; height: 85vh;">
                         <div style="position: relative; top: 8%; width: 100%; z-index: 5; right: 0px;">
-                            <form data-toggle="validator" style="position: absolute; left: 20px; width: 92%" id='registerForm' onsubmit="return false">
+                            <form data-toggle="validator" role="form" style="position: absolute; left: 20px; width: 92%" id='registerForm'>
                                 <div class="form-group row phoneRow">
                                     <img src="./img/star.png" class="star" style="left: 20px;">
                                     <div style="background-image: url('./img/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 35%; background-position: right center;"></div>
-                                    <input type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" minlength="11" maxlength="11" pattern="^1(1|3|4|5|6|7|8|9)\d{9}$" data-error="输入错误，请输入11码电话号码" required>
+                                    <input name="phone" type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" minlength="11" maxlength="11" pattern="^1(1|3|4|5|6|7|8|9)\d{9}$" data-error="输入错误，请输入11码电话号码" required>
                                     <div class="help-block with-errors" style="color: yellow; width: 100%; font-weight: bold"></div>
                                 </div>
                                 <!-- <div class="used"><label style="color: yellow; margin-bottom: 0">已有人使用 !</label></div> -->
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: 40px;">
                                     <div style="background-image: url('./img/pwd.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
-                                    <input type="password" id="password" class="form-control" style="width: 57%; margin-left: 8px" minlength="4" maxlength="20" data-error="输入错误，请输入4-20个字元" required>
+                                    <input name="password" type="password" id="password" class="form-control" style="width: 57%; margin-left: 8px" minlength="4" maxlength="20" data-error="输入错误，请输入4-20个字元" required>
                                     <div class="help-block with-errors" style="color: yellow;  width: 100%; font-weight: bold"></div>
                                 </div>
                                 <div class="form-group row">
                                     <img src="./img/star.png" class="star" style="left: -2px;">
                                     <div style="background-image: url('./img/confirmPwd.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
-                                    <input type="password" id="password_verification" class="form-control" style="width: 57%; margin-left: 8px" data-match="#password" data-error="输入错误与密码不同，请重複输入密码" required>
+                                    <input name="password_verification" type="password" id="password_verification" class="form-control" style="width: 57%; margin-left: 8px" data-match="#password" data-error="输入错误与密码不同，请重複输入密码" required>
                                     <div class="help-block with-errors" style="color: yellow;  width: 100%; font-weight: bold"></div>
                                 </div>
                                 <!-- <div class="form-group row" style="margin-left: 2px">
@@ -206,101 +206,110 @@
         $('#registerModal').modal('show');
 
         $("#registerPlayer").click(function() {
-            let registerData = {};
+            $('#registerForm').validator().on('submit', function(e) {
+                // 未驗證通過 則不處理
+                if (e.isDefaultPrevented()) { 
+                    return;
+                } else { 
+                    // 通过后，送出表单
+                    let registerData = {};
 
-            $("form#registerForm :input").each(function(){
-                let input = $(this);
-                if(input[0].id && input[0].id != 'registerPlayer' && input[0].value) {
-                    registerData[input[0].id] = input[0].value;
+                    $("form#registerForm :input").each(function(){
+                        let input = $(this);
+                        if(input[0].id && input[0].id != 'registerPlayer' && input[0].value) {
+                            registerData[input[0].id] = input[0].value;
+                        }
+                    });
+
+                    registerData['site'] = query['site'];
+
+                    //確認重複密碼相同
+                    if(registerData['password'] === registerData['password_verification']) {
+                        delete registerData['password_verification'];
+                        url = baseUrl + 'player/register';
+
+                        $('.loading_show').show();
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: registerData,
+                            dataType: "json"
+                        }).done(function(data) {
+                            $('.loading_show').hide();
+                            if(data.code == 201) {
+                                registerFlag = true;
+                                Swal.fire({
+                                    title: '<img src="./img/reg_success.png" style="width: 100%;">',
+                                    // text: `欢迎你 ! ${registerData['phone']}`,
+                                    background: 'url(./img/reg_modal.png)',
+                                    width: 450,
+                                    confirmButtonText: ''
+                                }).then(function() {
+                                    $('#registerModal').modal('hide');
+                                    if(device == 'android') {
+                                        window.location = "/app/ttds.apk";
+                                    } else {
+                                        setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
+                                    }
+                                })
+                                swalStyle()
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            $('.loading_show').hide();
+                            if (jqXHR.status == 409) {
+                                // 帳號重複在這裡
+                                registerFlag = true;
+                                Swal.fire({
+                                    title: '<img src="./img/account_used_txt.png" style="width: 100%;">',
+                                    background: 'url(./img/account_used_bg.png)',
+                                    width: 450,
+                                    showCancelButton: true,
+                                    confirmButtonText: '',
+                                    cancelButtonText: '',
+                                }).then(function(result) {
+                                    if(result.value == true) {
+                                        $('#registerModal').modal('hide');
+                                        // $('.loading_show').show();
+                                        if(device == 'android') {
+                                            window.location = "/app/ttds.apk";
+                                        } else {
+                                            setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
+                                        }
+                                    } else {
+                                        $('#phone').val('');
+                                        $('#password').val('');
+                                        $('#password_verification').val('');
+                                    }
+
+                                })
+                                $('.swal2-modal').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center'})
+                                $('.swal2-confirm').css({'background': 'url(./img/continue.png)'});
+                                $('.swal2-cancel').css({'background': 'url(./img/reregister.png)'});
+                                $('.swal2-styled').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center', 'width': '140px', 'height': '50px'})
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: '<h2 style="color: white">注册失败</h2>',
+                                    text: '请确认资料输入是否正确',
+                                    background: 'url(./img/reg_modal.png)',
+                                    width: 450,
+                                    confirmButtonText: ''
+                                }).then(function() {
+                                    $('#phone').val('');
+                                    $('#password').val('');
+                                    $('#password_verification').val('');
+                                })
+                                swalStyle();
+                            }
+                        });
+                    }
                 }
+                e.preventDefault(); // 防止原始 form 提交表单
             });
-
-            registerData['site'] = query['site'];
-
-            //確認重複密碼相同
-            if(registerData['password'] === registerData['password_verification']) {
-                delete registerData['password_verification'];
-                url = baseUrl + 'player/register';
-
-                $('.loading_show').show();
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: registerData,
-                    dataType: "json"
-                }).done(function(data) {
-                    $('.loading_show').hide();
-                    if(data.code == 201) {
-                        registerFlag = true;
-                        Swal.fire({
-                            title: '<img src="./img/reg_success.png" style="width: 100%;">',
-                            // text: `欢迎你 ! ${registerData['phone']}`,
-                            background: 'url(./img/reg_modal.png)',
-                            width: 450,
-                            confirmButtonText: ''
-                        }).then(function() {
-                            $('#registerModal').modal('hide');
-                            if(device == 'android') {
-                                window.location = "/app/ttds.apk";
-                            } else {
-                                setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
-                            }
-                        })
-                        swalStyle()
-                    }
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    $('.loading_show').hide();
-                    if (jqXHR.status == 409) {
-                        // 帳號重複在這裡
-                        registerFlag = true;
-                        Swal.fire({
-                            title: '<img src="./img/account_used_txt.png" style="width: 100%;">',
-                            background: 'url(./img/account_used_bg.png)',
-                            width: 450,
-                            showCancelButton: true,
-                            confirmButtonText: '',
-                            cancelButtonText: '',
-                        }).then(function(result) {
-                            if(result.value == true) {
-                                $('#registerModal').modal('hide');
-                                // $('.loading_show').show();
-                                if(device == 'android') {
-                                    window.location = "/app/ttds.apk";
-                                } else {
-                                    setTimeout(function(){document.location.href = "https://web2data.me/dis_single.html?s=5xb5";},250);
-                                }
-                            } else {
-                                $('#phone').val('');
-                                $('#password').val('');
-                                $('#password_verification').val('');
-                            }
-
-                        })
-                        $('.swal2-modal').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center'})
-                        $('.swal2-confirm').css({'background': 'url(./img/continue.png)'});
-                        $('.swal2-cancel').css({'background': 'url(./img/reregister.png)'});
-                        $('.swal2-styled').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center', 'width': '140px', 'height': '50px'})
-                    } else {
-                        Swal.fire({
-                            type: 'error',
-                            title: '<h2 style="color: white">注册失败</h2>',
-                            text: '请确认资料输入是否正确',
-                            background: 'url(./img/reg_modal.png)',
-                            width: 450,
-                            confirmButtonText: ''
-                        }).then(function() {
-                            $('#phone').val('');
-                            $('#password').val('');
-                            $('#password_verification').val('');
-                        })
-                        swalStyle();
-                    }
-                });
-            }
-
         });
         console.log(device == 'android');
     }
+
 
     $(".downloadButton").click(function() {
         if(query['mgm_code']) {
