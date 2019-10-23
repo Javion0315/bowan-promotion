@@ -17,7 +17,7 @@
     right: 50px;
 }
 .inputOffer {
-    font-size: 25px;
+    font-size: 17px;
 }
 .opacityBg {
     height: 94px;
@@ -37,24 +37,24 @@
     width: 150px
 }
 .bg1regi {
-    width: 160px
+    width: 170px
 }
 .form-group {
-    height: 33px;
+    height: 23px;
     position: relative;
     margin-bottom: 30px;
 }
 .star {
     width: 5%;
     position: absolute;
-    top: 11px;
+    top: 2px;
 }
 .downloadImg {
     width: 60px;
 }
 .downloadIntro {
-    bottom: 0px;
-    right: 65px
+    bottom: 77px;
+    right: 80px
 }
 #registerForm {
     top: 0px
@@ -68,11 +68,11 @@
     .inputText {
         width: 50%;
         position: absolute;
-        bottom: 163px;
+        bottom: 232px;
         right: 70px;
     }
     .inputOffer {
-        font-size: 30px;
+        font-size: 25px;
     }
     .opacityBg {
         height: 105px;
@@ -90,8 +90,8 @@
         width: 80px;
     }
     .downloadIntro {
-        bottom: -10px;
-        right: 100px
+        bottom: 116px;
+        right: 125px
     }
     #registerForm {
         top: 8px
@@ -102,7 +102,7 @@
 }
 @media (max-width: 375px) {
     .inputText {
-        bottom: 101px;
+        bottom: 148px;
     }
 }
 @media (max-width: 320px) {

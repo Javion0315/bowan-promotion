@@ -11,7 +11,13 @@
     <link href="./css/self.css" rel="stylesheet">
     <style>
         .modal-body {
-            background-image: url('./img/modalBgNew.png');
+            background-image: url('./img/promotion666/alert/regBg.png');
+        }
+        input {
+            background-image: url('./img/promotion666/alert/input.png');
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center;
         }
         .used {
             display: none;
@@ -25,6 +31,9 @@
         }
         .swal2-modal {
             height: 450px;
+        }
+        .form-group {
+            margin-bottom: 20px;
         }
         @media (min-width: 980px) {
             .swal2-modal {
@@ -53,36 +62,39 @@
         <div class="row">
             <div class="col-md-6 offset-md-3" style="padding: 0">
                 <div style="position: relative;">
-                    <img src="./img/page1.png" class="img-fluid">
+                    <img src="./img/promotion666/page1.png" class="img-fluid">
                     <!-- 下載按鈕 -->
-                    <div style="display: flex; justify-content: space-around; position: absolute; bottom: 35px">
-                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton android' onclick="register(this, 'android')"><img src="./img/android.png" class="img-fluid"></a></div>
-                        <div style="width: 45%; cursor: pointer;"><a class='downloadButton ios' onclick="register(this, 'ios')"><img src="./img/ios.png" class="img-fluid"></a></div>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <div style="display: flex; justify-content: space-around; position: absolute; bottom: 17%; width: 72%;">
+                            <div style="width: 40%; cursor: pointer;"><a class='downloadButton android' onclick="register(this, 'android')"><img src="./img/promotion666/androidBtn.png" class="img-fluid"></a></div>
+                            <div style="width: 40%; cursor: pointer;"><a class='downloadButton ios' onclick="register(this, 'ios')"><img src="./img/promotion666/iosBtn.png" class="img-fluid"></a></div>
+                        </div>
                     </div>
+                    
                      <!-- 下載教學 -->
-                     <div class="downloadIntro" style="position: absolute; z-index: 5;">
-                        <div style="cursor: pointer"><a href="download.html"><img src="./img/download.png" class="img-fluid downloadIntro downloadImg"></a></div>
+                     <div class="downloadIntro" style="position: absolute; z-index: 5; bottom: 12%">
+                        <div style="cursor: pointer"><a href=""><img src="./img/promotion666/download.png" class="img-fluid downloadIntro downloadImg"></a></div>
                     </div>
                     <!-- 優惠代碼 input  -->
                     <div class="inputText">
-                        <input type="text" readonly="readonly" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: yellow; font-weight: bold;">
+                        <input type="text" readonly="readonly" class="form-control inputOffer" style="background:rgba(0,0,0,0); border: 0; color: black; font-weight: bold;">
                     </div>
                     <!-- 註冊按鈕 -->
-                    <!-- <div style="position: absolute; z-index: 5; bottom: 43%; right: 3px">
-                        <div data-toggle="modal" data-target="#registerModal" style="cursor: pointer"><img src="./img/rigester.png" class="img-fluid bg1regi"></div>
-                    </div> -->
+                    <div style="position: absolute; z-index: 5; top: 31%; right: 3px">
+                        <div data-toggle="modal" data-target="#registerModal" style="cursor: pointer"><img src="./img/promotion666/registerBtn.png" class="img-fluid bg1regi"></div>
+                    </div>
                 </div>
                 <!-- 第二頁 -->
                 <div style="position: relative">
-                    <img src="./img/page2.png" class="img-fluid">
+                    <img src="./img/promotion666/page2.png" class="img-fluid">
                     <!-- 試玩按鈕 -->
-                    <div class="bgPlay" style="position: absolute; height: 40%; bottom: 0;">
-                        <div><a href="http://play.58poker.net/H5Hall/"><img src="./img/play.png" class="img-fluid bg2img" width="150"></a></div>
+                    <div class="bgPlay" style="position: absolute; height: 41%; bottom: 0;">
+                        <div><a href="http://play.58poker.net/H5Hall/"><img src="./img/promotion666/play.png" class="img-fluid bg2img" width="150"></a></div>
                     </div>
                 </div>
                 <!-- 固定頂部的優惠代碼提示字 -->
                 <div class="opacityBg" style="position: fixed; top: 0; background: rgba(0,0,0,0.7); width: 100%; max-width: 570px;">
-                    <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/pageLogo.png" class="img-fluid"></div>
+                    <div style="width: 15%; position: absolute; top: 10px; left: 10px"><img src="./img/promotion666/icon.png" class="img-fluid"></div>
                     <div class="offerText">
                         优惠代码 : <input type="text" value="" id="offer" readonly="readonly"> <a class="offerBtn" data-clipboard-target="#offer" onclick="copyText()" style="color: #00A0EB; cursor: pointer;"><u>一键复制</u></a><br>
                         填入优惠代码以解锁多项优惠活动
@@ -105,25 +117,25 @@
                     <img src="./img/close.png" data-dismiss="modal" style="cursor: pointer; width: 18%; position: absolute; z-index: 5; right: 0;">
                     <div class="modal-body" style="background-repeat: no-repeat; width: 100%; background-size: 100%; height: 85vh;">
                         <div style="position: relative; top: 8%; width: 100%; z-index: 5; right: 0px;">
-                            <form data-toggle="validator" role="form" style="position: absolute; left: 20px; width: 92%" id='registerForm'>
+                            <form data-toggle="validator" role="form" style="position: absolute; left: 25px; width: 90%" id='registerForm'>
                                 <div class="form-group row phoneRow">
-                                    <img src="./img/star.png" class="star" style="left: 20px;">
-                                    <div style="background-image: url('./img/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 35%; background-position: right center;"></div>
-                                    <input name="phone" type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px" minlength="11" maxlength="11" pattern="^1(1|3|4|5|6|7|8|9)\d{9}$" data-error="输入错误，请输入11码电话号码" required>
-                                    <div class="help-block with-errors" style="color: yellow; width: 100%; font-weight: bold"></div>
+                                    <img src="./img/promotion666/alert/star.png" class="star" style="left: 20px;">
+                                    <div style="background-image: url('./img/promotion666/alert/phone.png'); background-repeat: no-repeat; background-size: 65%; width: 30%; background-position: right center;"></div>
+                                    <input name="phone" type="text" id="phone" class="form-control" style="width: 57%; margin-left: 8px; height: 24px;" minlength="11" maxlength="11" pattern="^1(1|3|4|5|6|7|8|9)\d{9}$" data-error="输入错误，请输入11码电话号码" required>
+                                    <div class="help-block with-errors" style="width: 100%; font-weight: bold; margin-top: -5px;"></div>
                                 </div>
                                 <!-- <div class="used"><label style="color: yellow; margin-bottom: 0">已有人使用 !</label></div> -->
                                 <div class="form-group row">
-                                    <img src="./img/star.png" class="star" style="left: 40px;">
-                                    <div style="background-image: url('./img/pwd.png'); background-repeat: no-repeat; background-size: 48%; width: 35%; background-position: right center;"></div>
-                                    <input name="password" type="password" id="password" class="form-control" style="width: 57%; margin-left: 8px" minlength="4" maxlength="20" data-error="输入错误，请输入4-20个字元" required>
-                                    <div class="help-block with-errors" style="color: yellow;  width: 100%; font-weight: bold"></div>
+                                    <img src="./img/promotion666/alert/star.png" class="star" style="left: 30px;">
+                                    <div style="background-image: url('./img/promotion666/alert/password.png'); background-repeat: no-repeat; background-size: 48%; width: 30%; background-position: right center;"></div>
+                                    <input name="password" type="password" id="password" class="form-control" style="width: 57%; margin-left: 8px; height: 24px;" minlength="4" maxlength="20" data-error="输入错误，请输入4-20个字元" required>
+                                    <div class="help-block with-errors" style="width: 100%; font-weight: bold; margin-top: -5px;"></div>
                                 </div>
                                 <div class="form-group row">
-                                    <img src="./img/star.png" class="star" style="left: -2px;">
-                                    <div style="background-image: url('./img/confirmPwd.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
-                                    <input name="password_verification" type="password" id="password_verification" class="form-control" style="width: 57%; margin-left: 8px" data-match="#password" data-error="输入错误与密码不同，请重複输入密码" required>
-                                    <div class="help-block with-errors" style="color: yellow;  width: 100%; font-weight: bold"></div>
+                                    <img src="./img/promotion666/alert/star.png" class="star" style="left: -2px;">
+                                    <div style="background-image: url('./img/promotion666/alert/confirmPwd.png'); background-repeat: no-repeat; background-size: 85%; width: 30%; background-position: right center;"></div>
+                                    <input name="password_verification" type="password" id="password_verification" class="form-control" style="width: 57%; height: 24px; margin-left: 8px" data-match="#password" data-error="输入错误与密码不同，请重複输入密码" required>
+                                    <div class="help-block with-errors" style="width: 100%; font-weight: bold; margin-top: -5px; margin-left: -20px;"></div>
                                 </div>
                                 <!-- <div class="form-group row" style="margin-left: 2px">
                                     <img src="./img/star.png" class="star" style="left: -18px;">
@@ -141,14 +153,14 @@
                                     <button style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/authBtn.png'); background-repeat: no-repeat; background-size: contain; width: 27%; background-position: center center; margin-left: 5px;"></button>
                                 </div> -->
                                 <div class="form-group row" style="margin-bottom: 5px">
-                                    <div style="background-image: url('./img/offerCode.png'); background-repeat: no-repeat; background-size: 85%; width: 35%; background-position: right center;"></div>
-                                    <input type="text" id="mgm_code" class="form-control inputOffer" style="width: 57%; margin-left: 8px" disabled>
+                                    <div style="background-image: url('./img/promotion666/alert/mgm_code.png'); background-repeat: no-repeat; background-size: 85%; width: 30%; background-position: right center;"></div>
+                                    <input type="text" id="mgm_code" class="form-control inputOffer" style="width: 57%; margin-left: 8px; height: 24px;" disabled>
                                 </div>
                                 <div class="form-group row" style="margin-bottom: 0px">
-                                    <div style="background-image: url('./img/required.png'); background-repeat: no-repeat; background-size: 40%; width: 90%; background-position: right center;"></div>
+                                    <div style="background-image: url('./img/promotion666/alert/required.png'); background-repeat: no-repeat; background-size: 40%; width: 90%; background-position: right center;"></div>
                                 </div>
                                 <div class="form-group row">
-                                    <button id="registerPlayer" style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/confirm.png'); background-repeat: no-repeat; background-size: 35%; width: 100%; background-position: center center; height: 65px;"></button>
+                                    <button id="registerPlayer" style="cursor: pointer; background-color: transparent; border: none; background-image: url('./img/promotion666/alert/confirmBtn.png'); background-repeat: no-repeat; background-size: 35%; width: 95%; background-position: center center; height: 65px;"></button>
                                 </div>
                             </form>
                         </div>
@@ -173,10 +185,11 @@
 
     //變更 swal 背景樣式
     function swalStyle() {
-        $('.swal2-modal').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center'})
-        $('.swal2-confirm').css({'background': 'url(./img/confirm.png)'});
+        $('.swal2-modal').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center 65px'})
+        $('.swal2-confirm').css({'background': 'url(./img/promotion666/alert/confirmBtn.png)', 'max-width': '100px', 'margin-top': '-20px'});
         $('.swal2-styled').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center', 'width': '140px', 'height': '50px'})
-        $('.swal2-content').css('color', 'white')
+        $('.swal2-content').css('color', 'white');
+        $('.swal2-title').css('justify-content', 'center')
     }
 
     $(function() {
@@ -239,9 +252,9 @@
                             if(data.code == 201) {
                                 registerFlag = true;
                                 Swal.fire({
-                                    title: '<img src="./img/reg_success.png" style="width: 100%;">',
+                                    title: '<img src="./img/promotion666/alert/reg_success.png" style="width: 53%; margin-top: -83px">',
                                     // text: `欢迎你 ! ${registerData['phone']}`,
-                                    background: 'url(./img/reg_modal.png)',
+                                    background: 'url(./img/promotion666/alert/alertBg.png)',
                                     width: 450,
                                     confirmButtonText: ''
                                 }).then(function() {
@@ -260,8 +273,8 @@
                                 // 帳號重複在這裡
                                 registerFlag = true;
                                 Swal.fire({
-                                    title: '<img src="./img/account_used_txt.png" style="width: 100%;">',
-                                    background: 'url(./img/account_used_bg.png)',
+                                    title: '<img src="./img/promotion666/alert/used.png" style="width: 75%; margin-top: 25px">',
+                                    background: 'url(./img/promotion666/alert/alertBg.png)',
                                     width: 450,
                                     showCancelButton: true,
                                     confirmButtonText: '',
@@ -283,15 +296,16 @@
 
                                 })
                                 $('.swal2-modal').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center'})
-                                $('.swal2-confirm').css({'background': 'url(./img/continue.png)'});
-                                $('.swal2-cancel').css({'background': 'url(./img/reregister.png)'});
+                                $('.swal2-confirm').css({'background': 'url(./img/promotion666/alert/continue.png)', 'max-width': '125px'});
+                                $('.swal2-cancel').css({'background': 'url(./img/promotion666/alert/renew.png)', 'max-width': '125px'});
+                                $('.swal2-title').css('justify-content', 'center');
                                 $('.swal2-styled').css({'background-size': '100%', 'background-repeat': 'no-repeat', 'background-position': 'center', 'width': '140px', 'height': '50px'})
                             } else {
                                 Swal.fire({
                                     type: 'error',
                                     title: '<h2 style="color: white">注册失败</h2>',
                                     text: '请确认资料输入是否正确',
-                                    background: 'url(./img/reg_modal.png)',
+                                    background: 'url(./img/promotion666/alert/alertBg.png)',
                                     width: 450,
                                     confirmButtonText: ''
                                 }).then(function() {
@@ -350,9 +364,9 @@
     function copyText() {
         new Clipboard(".offerBtn");
         Swal.fire({
-            title: '<img src="./img/copy_success.png" style="width: 65%;">',
+            title: '<img src="./img/promotion666/alert/success_icon.png" style="width: 47%; margin-top: -77px">',
             // text: $('#offer').val(),
-            background: 'url(./img/reg_modal.png)',
+            background: 'url(./img/promotion666/alert/alertBg.png)',
             width: 450,
             showConfirmButton: false,
             timer: 1000
