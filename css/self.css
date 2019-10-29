@@ -13,11 +13,11 @@
     width: 50%;
     position: absolute;
     font-weight: bold;
-    bottom: 107px;
+    top: 73%;
     right: 50px;
 }
 .inputOffer {
-    font-size: 17px;
+    font-size: 20px;
 }
 .opacityBg {
     height: 94px;
@@ -68,11 +68,11 @@
     .inputText {
         width: 50%;
         position: absolute;
-        bottom: 232px;
+        top: 73%;
         right: 70px;
     }
     .inputOffer {
-        font-size: 25px;
+        font-size: 21px;
     }
     .opacityBg {
         height: 105px;
@@ -100,17 +100,20 @@
         margin-bottom: 1rem;
     }
 }
-@media (max-width: 375px) {
+@media (max-width: 380px) {
     .inputText {
-        bottom: 148px;
+        top: 72.3%;
+    }
+    .inputOffer {
+        font-size: 16px;
     }
 }
 @media (max-width: 320px) {
     .inputText {
-        bottom: 83px;
+        top: 72%;
     }
     .inputOffer {
-        font-size: 20px;
+        font-size: 14px;
     }
     .offerText {
         font-size: 14px;
